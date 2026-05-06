@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mintyn/core/components/custom_appbar.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
 
 class DashboardView extends StatelessWidget {
@@ -6,6 +7,21 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScaffold();
+    return CustomScaffold(
+      appBar: CustomAppBar(
+        title: Text.rich(
+          TextSpan(
+            text: 'Welcome ',
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w400),
+            children: [
+              TextSpan(
+                text: 'Tayyab Sohail',
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -40,8 +40,13 @@ class AppColor {
   static const Color grey600 = Color(0xFF393E45);
   static const Color grey700 = Color(0xFFABB4BD);
   static const Color grey800 = Color(0xFF2A2B36);
+
   //Red Shades
   static const Color red40 = Color(0xFFFCEFEF);
   static const Color red50 = Color(0xFFFF3E3E);
   static const Color red100 = Color(0xFFF40057);
+
+  //App Theme Colors
+  static const Color greyT10 = Color(0xFF1C1C1D);
+  static const Color greyT20 = Color(0xFF272729);
 }

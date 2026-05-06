@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mintyn/config/navigators/routes_manager.dart';
 import 'package:mintyn/config/navigators/undefined_route.dart';
-import 'package:mintyn/features/auth/presentation/view/splash_view.dart';
+import 'package:mintyn/features/splash/presentation/view/splash_view.dart';
 import 'package:mintyn/features/home/presentation/view/dashboard_view.dart';
 import 'package:page_transition/page_transition.dart';
 

@@ -14,7 +14,7 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary),
-    fontFamily: GoogleFonts.roboto().fontFamily,
+    fontFamily: GoogleFonts.arimo().fontFamily,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     scrollbarTheme: TScrollBarTheme.lightScrollBarTheme,
     checkboxTheme: TCheckBoxTheme.lightCheckBoxTheme,
@@ -28,13 +28,13 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary, brightness: Brightness.dark),
-    fontFamily: GoogleFonts.roboto().fontFamily,
+    fontFamily: GoogleFonts.arimo().fontFamily,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     scrollbarTheme: TScrollBarTheme.darkScrollBarTheme,
     checkboxTheme: TCheckBoxTheme.darkCheckBoxTheme,
     appBarTheme: TAppBarTheme.darkAppBarTheme,
     inputDecorationTheme: TInputDecorationTheme.inputDecorationThemeDark,
     textTheme: TTextTheme.darkTextTheme,
-    scaffoldBackgroundColor: AppColor.black,
+    scaffoldBackgroundColor: AppColor.greyT10,
   );
 }

@@ -21,7 +21,7 @@ class TAppBarTheme {
     elevation: 0,
     centerTitle: false,
     scrolledUnderElevation: 0,
-    backgroundColor: AppColor.black,
+    backgroundColor: AppColor.greyT20,
     surfaceTintColor: AppColor.black,
     iconTheme: IconThemeData(color: AppColor.black),
     actionsIconTheme: IconThemeData(color: AppColor.black),
