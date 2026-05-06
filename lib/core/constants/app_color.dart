@@ -49,4 +49,5 @@ class AppColor {
   //App Theme Colors
   static const Color greyT10 = Color(0xFF1C1C1D);
   static const Color greyT20 = Color(0xFF272729);
+  static const Color greyT30 = Color(0xFF2E2D2D);
 }

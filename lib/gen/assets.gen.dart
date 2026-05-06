@@ -7,7 +7,40 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart' as _svg;
+import 'package:vector_graphics/vector_graphics.dart' as _vg;
+
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/barcode.svg
+  SvgGenImage get barcode => const SvgGenImage('assets/icons/barcode.svg');
+
+  /// File path: assets/icons/bell_notification.svg
+  SvgGenImage get bellNotification =>
+      const SvgGenImage('assets/icons/bell_notification.svg');
+
+  /// File path: assets/icons/billpay.svg
+  SvgGenImage get billpay => const SvgGenImage('assets/icons/billpay.svg');
+
+  /// File path: assets/icons/deposit.svg
+  SvgGenImage get deposit => const SvgGenImage('assets/icons/deposit.svg');
+
+  /// File path: assets/icons/donations.svg
+  SvgGenImage get donations => const SvgGenImage('assets/icons/donations.svg');
+
+  /// File path: assets/icons/hamburger.svg
+  SvgGenImage get hamburger => const SvgGenImage('assets/icons/hamburger.svg');
+
+  /// File path: assets/icons/more.svg
+  SvgGenImage get more => const SvgGenImage('assets/icons/more.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values =>
+      [barcode, bellNotification, billpay, deposit, donations, hamburger, more];
+}
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -16,14 +49,22 @@ class $AssetsImagesGen {
   AssetGenImage get appLogo =>
       const AssetGenImage('assets/images/app_logo.png');
 
+  /// File path: assets/images/card_bg.png
+  AssetGenImage get cardBg => const AssetGenImage('assets/images/card_bg.png');
+
+  /// File path: assets/images/mastercard.png
+  AssetGenImage get mastercard =>
+      const AssetGenImage('assets/images/mastercard.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [appLogo];
+  List<AssetGenImage> get values => [appLogo, cardBg, mastercard];
 }
 
 class Assets {
   const Assets._();
 
   static const String aEnv = '.env';
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 
   /// List of all assets
@@ -103,6 +144,83 @@ class AssetGenImage {
       _assetName,
       bundle: bundle,
       package: package,
+    );
+  }
+
+  String get path => _assetName;
+
+  String get keyName => _assetName;
+}
+
+class SvgGenImage {
+  const SvgGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  }) : _isVecFormat = false;
+
+  const SvgGenImage.vec(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  }) : _isVecFormat = true;
+
+  final String _assetName;
+  final Size? size;
+  final Set<String> flavors;
+  final bool _isVecFormat;
+
+  _svg.SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    _svg.SvgTheme? theme,
+    ColorFilter? colorFilter,
+    Clip clipBehavior = Clip.hardEdge,
+    @deprecated Color? color,
+    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
+    @deprecated bool cacheColorFilter = false,
+  }) {
+    final _svg.BytesLoader loader;
+    if (_isVecFormat) {
+      loader = _vg.AssetBytesLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+      );
+    } else {
+      loader = _svg.SvgAssetLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+        theme: theme,
+      );
+    }
+    return _svg.SvgPicture(
+      loader,
+      key: key,
+      matchTextDirection: matchTextDirection,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      colorFilter: colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
+      clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
     );
   }
 
