@@ -77,4 +77,29 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/data/
+    - assets/font/
     - .env
+
+  fonts:
+    - family: Arimo
+      fonts:
+        - asset: assets/font/Arimo-Regular.ttf
+          weight: 400
+        - asset: assets/font/Arimo-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/font/Arimo-Medium.ttf
+          weight: 500
+        - asset: assets/font/Arimo-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/font/Arimo-SemiBold.ttf
+          weight: 600
+        - asset: assets/font/Arimo-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/font/Arimo-Bold.ttf
+          weight: 700
+        - asset: assets/font/Arimo-BoldItalic.ttf
+          weight: 700
+          style: italic

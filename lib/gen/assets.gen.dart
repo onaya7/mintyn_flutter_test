@@ -12,8 +12,55 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart' as _svg;
 import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
+class $AssetsFontGen {
+  const $AssetsFontGen();
+
+  /// File path: assets/font/Arimo-Bold.ttf
+  String get arimoBold => 'assets/font/Arimo-Bold.ttf';
+
+  /// File path: assets/font/Arimo-BoldItalic.ttf
+  String get arimoBoldItalic => 'assets/font/Arimo-BoldItalic.ttf';
+
+  /// File path: assets/font/Arimo-Italic.ttf
+  String get arimoItalic => 'assets/font/Arimo-Italic.ttf';
+
+  /// File path: assets/font/Arimo-Medium.ttf
+  String get arimoMedium => 'assets/font/Arimo-Medium.ttf';
+
+  /// File path: assets/font/Arimo-MediumItalic.ttf
+  String get arimoMediumItalic => 'assets/font/Arimo-MediumItalic.ttf';
+
+  /// File path: assets/font/Arimo-Regular.ttf
+  String get arimoRegular => 'assets/font/Arimo-Regular.ttf';
+
+  /// File path: assets/font/Arimo-SemiBold.ttf
+  String get arimoSemiBold => 'assets/font/Arimo-SemiBold.ttf';
+
+  /// File path: assets/font/Arimo-SemiBoldItalic.ttf
+  String get arimoSemiBoldItalic => 'assets/font/Arimo-SemiBoldItalic.ttf';
+
+  /// List of all assets
+  List<String> get values => [
+        arimoBold,
+        arimoBoldItalic,
+        arimoItalic,
+        arimoMedium,
+        arimoMediumItalic,
+        arimoRegular,
+        arimoSemiBold,
+        arimoSemiBoldItalic
+      ];
+}
+
 class $AssetsIconsGen {
   const $AssetsIconsGen();
+
+  /// File path: assets/icons/add_plus.svg
+  SvgGenImage get addPlus => const SvgGenImage('assets/icons/add_plus.svg');
+
+  /// File path: assets/icons/arrow_up_right.svg
+  SvgGenImage get arrowUpRight =>
+      const SvgGenImage('assets/icons/arrow_up_right.svg');
 
   /// File path: assets/icons/barcode.svg
   SvgGenImage get barcode => const SvgGenImage('assets/icons/barcode.svg');
@@ -38,8 +85,17 @@ class $AssetsIconsGen {
   SvgGenImage get more => const SvgGenImage('assets/icons/more.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [barcode, bellNotification, billpay, deposit, donations, hamburger, more];
+  List<SvgGenImage> get values => [
+        addPlus,
+        arrowUpRight,
+        barcode,
+        bellNotification,
+        billpay,
+        deposit,
+        donations,
+        hamburger,
+        more
+      ];
 }
 
 class $AssetsImagesGen {
@@ -64,6 +120,7 @@ class Assets {
   const Assets._();
 
   static const String aEnv = '.env';
+  static const $AssetsFontGen font = $AssetsFontGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 

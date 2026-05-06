@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mintyn/core/constants/app_color.dart';
-import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/helpers/ui_helpers.dart';
 import 'package:mintyn/gen/assets.gen.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButton extends StatefulWidget {
   const CustomButton({
     required this.text,
     required this.textColor,
@@ -17,10 +16,10 @@ class CustomButton extends StatelessWidget {
     this.sufficIconPath,
     this.leadingIconPath,
     this.leadingImagePath,
-    this.iconWidth = 18,
-    this.suffixIconColor = AppColor.black,
-    this.leadingIconColor = AppColor.black,
-    this.iconHeight = 18,
+    this.iconWidth = 24,
+    this.suffixIconColor = AppColor.white,
+    this.leadingIconColor = AppColor.white,
+    this.iconHeight = 24,
     this.hasLeadingIcon = false,
     this.useLeadingImage = false,
     this.hasSuffixIcon = false,
@@ -30,6 +29,7 @@ class CustomButton extends StatelessWidget {
     this.isLoading = false,
     super.key,
   });
+
   final String text;
   final Color textColor;
   final double textSize;
@@ -51,67 +51,84 @@ class CustomButton extends StatelessWidget {
   final void Function()? onPressed;
   final bool isLoading;
 
-  void _handleButtonPress() {
+  @override
+  State<CustomButton> createState() => _CustomButtonState();
+}
+
+class _CustomButtonState extends State<CustomButton> {
+  bool _pressed = false;
+
+  void _handleTap() {
+    if (widget.isLoading || widget.onPressed == null) return;
     UiHelpers.hapticFeedback();
-    if (onPressed != null) {
-      // ignore: prefer_null_aware_method_calls
-      onPressed!();
-    }
+    widget.onPressed!();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      width: AppSizes.screenWidth(context),
-      child: ElevatedButton(
-        style: ButtonStyle(
-          side: WidgetStateProperty.all<BorderSide>(BorderSide(color: borderColor ?? Colors.transparent)),
-          elevation: WidgetStateProperty.all<double>(0),
-          backgroundColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
-            if (states.contains(WidgetState.disabled) || isLoading) {
-              return backgroundColor.withValues(alpha: 0.8);
-            }
-            return backgroundColor;
-          }),
-          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
-          ),
+    final isDisabled = widget.onPressed == null || widget.isLoading;
+    final color = isDisabled
+        ? widget.backgroundColor.withValues(alpha: 0.8)
+        : (_pressed ? widget.backgroundColor.withValues(alpha: 0.85) : widget.backgroundColor);
+
+    return GestureDetector(
+      onTap: isDisabled ? null : _handleTap,
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 120),
+        curve: Curves.easeInOut,
+        height: widget.height,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          border: Border.all(color: widget.borderColor ?? Colors.transparent),
         ),
-        onPressed: isLoading ? null : _handleButtonPress,
-        child: isLoading
-            ? const Center(child: SpinKitThreeBounce(color: AppColor.white, size: 20))
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  if (hasLeadingIcon)
-                    (useLeadingImage == false)
-                        ? SvgPicture.asset(
-                            leadingIconPath ?? '',
-                            width: iconWidth,
-                            height: iconHeight,
-                            colorFilter: ColorFilter.mode(leadingIconColor, BlendMode.srcIn),
-                          )
-                        : Image.asset(
-                            leadingImagePath ?? Assets.images.appLogo.path,
-                            width: iconWidth,
-                            height: iconHeight,
-                          ),
-                  if (hasLeadingIcon) const SizedBox(width: 8),
-                  Text(
-                    text,
-                    style: TextStyle(color: textColor, fontSize: textSize, fontWeight: textFontWeight),
-                  ),
-                  if (hasSuffixIcon) const SizedBox(width: 8),
-                  if (hasSuffixIcon)
-                    SvgPicture.asset(
-                      sufficIconPath ?? '',
-                      width: iconWidth,
-                      height: iconHeight,
-                      colorFilter: ColorFilter.mode(suffixIconColor, BlendMode.srcIn),
+        child: Center(
+          child: widget.isLoading
+              ? const SpinKitThreeBounce(color: AppColor.white, size: 20)
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    if (widget.hasLeadingIcon)
+                      (widget.useLeadingImage == false)
+                          ? SvgPicture.asset(
+                              widget.leadingIconPath ?? '',
+                              width: widget.iconWidth,
+                              height: widget.iconHeight,
+                              colorFilter: ColorFilter.mode(widget.leadingIconColor, BlendMode.srcIn),
+                            )
+                          : Image.asset(
+                              widget.leadingImagePath ?? Assets.images.appLogo.path,
+                              width: widget.iconWidth,
+                              height: widget.iconHeight,
+                            ),
+                    if (widget.hasLeadingIcon) const SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        widget.text,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: widget.textColor,
+                          fontSize: widget.textSize,
+                          fontWeight: widget.textFontWeight,
+                        ),
+                      ),
                     ),
-                ],
-              ),
+                    if (widget.hasSuffixIcon) const SizedBox(width: 8),
+                    if (widget.hasSuffixIcon)
+                      SvgPicture.asset(
+                        widget.sufficIconPath ?? '',
+                        width: widget.iconWidth,
+                        height: widget.iconHeight,
+                        colorFilter: ColorFilter.mode(widget.suffixIconColor, BlendMode.srcIn),
+                      ),
+                  ],
+                ),
+        ),
       ),
     );
   }

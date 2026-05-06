@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mintyn/config/theme/custom_theme/appbar_theme.dart';
 import 'package:mintyn/config/theme/custom_theme/checkbox_theme.dart';
 import 'package:mintyn/config/theme/custom_theme/input_theme.dart';
@@ -10,11 +9,13 @@ import 'package:mintyn/core/constants/app_color.dart';
 class AppTheme {
   AppTheme._();
 
+  static const String _fontFamily = 'Arimo';
+
   //Light theme
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary),
-    fontFamily: GoogleFonts.arimo().fontFamily,
+    fontFamily: _fontFamily,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     scrollbarTheme: TScrollBarTheme.lightScrollBarTheme,
     checkboxTheme: TCheckBoxTheme.lightCheckBoxTheme,
@@ -28,7 +29,7 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary, brightness: Brightness.dark),
-    fontFamily: GoogleFonts.arimo().fontFamily,
+    fontFamily: _fontFamily,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     scrollbarTheme: TScrollBarTheme.darkScrollBarTheme,
     checkboxTheme: TCheckBoxTheme.darkCheckBoxTheme,

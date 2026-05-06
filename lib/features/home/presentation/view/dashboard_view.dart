@@ -3,6 +3,10 @@ import 'package:mintyn/core/components/custom_appbar.dart';
 import 'package:mintyn/core/components/custom_ripple.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
 import 'package:mintyn/core/constants/app_color.dart';
+import 'package:mintyn/core/constants/app_size.dart';
+import 'package:mintyn/core/extensions/int_extension.dart';
+import 'package:mintyn/features/home/presentation/widget/balance_card.dart';
+import 'package:mintyn/features/home/presentation/widget/quickactionitem.dart';
 import 'package:mintyn/gen/assets.gen.dart';
 
 class DashboardView extends StatelessWidget {
@@ -51,13 +55,47 @@ class DashboardView extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 34, 16, 0),
         children: [
+          BalanceCard(balance: 1200.toMoneyString()),
+          AppSizes.h(30),
           Container(
-            height: 200,
+            height: 112,
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              image: DecorationImage(image: Assets.images.cardBg.image().image, fit: BoxFit.cover),
+              color: AppColor.greyT40,
+              borderRadius: BorderRadius.circular(7),
+              border: Border.all(color: AppColor.greyT20, width: 1.5),
             ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                QuickActionItem(iconPath: Assets.icons.billpay.path, label: 'Bill Pay', onTap: () {}),
+                const ActionDivider(),
+                QuickActionItem(iconPath: Assets.icons.donations.path, label: 'Donations', onTap: () {}),
+                const ActionDivider(),
+                QuickActionItem(iconPath: Assets.icons.deposit.path, label: 'Deposit', onTap: () {}),
+                const ActionDivider(),
+                QuickActionItem(iconPath: Assets.icons.more.path, label: 'More', onTap: () {}),
+              ],
+            ),
+          ),
+          AppSizes.h(30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Transaction History',
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+              ),
+              Text(
+                'See all',
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                  color: AppColor.blueT10,
+                ),
+              ),
+            ],
           ),
         ],
       ),
