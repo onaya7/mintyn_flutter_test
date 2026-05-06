@@ -55,7 +55,7 @@ class DashboardView extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 34, 16, 0),
         children: [
-          BalanceCard(balance: 1200.toMoneyString()),
+          BalanceCard(balance: 1200000000000000.toMoneyString()),
           AppSizes.h(30),
           Container(
             height: 112,
@@ -87,12 +87,58 @@ class DashboardView extends StatelessWidget {
                 'Transaction History',
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
               ),
-              Text(
-                'See all',
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 15,
-                  color: AppColor.blueT10,
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  'See all',
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                    color: AppColor.blueT10,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          AppSizes.h(20),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
+                decoration: BoxDecoration(color: AppColor.greyT40, borderRadius: BorderRadius.circular(28)),
+                child: Text(
+                  'Weekly',
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.white,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              AppSizes.w(14),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
+                decoration: BoxDecoration(color: AppColor.greyT40, borderRadius: BorderRadius.circular(28)),
+                child: Text(
+                  'Monthly',
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.white,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              AppSizes.w(14),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
+                decoration: BoxDecoration(color: AppColor.greyT40, borderRadius: BorderRadius.circular(28)),
+                child: Text(
+                  'Today',
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.white,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ],

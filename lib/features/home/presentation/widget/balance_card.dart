@@ -35,29 +35,33 @@ class BalanceCard extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.only(left: 37, right: 37),
+
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Total Balance',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.bodySmall!.copyWith(color: Colors.white70, fontWeight: FontWeight.w400),
-                                ),
-                                AppSizes.h(10),
-                                Text(
-                                  balance,
-                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                    color: AppColor.white,
-                                    fontWeight: FontWeight.w700,
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Total Balance',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall!.copyWith(color: Colors.white70, fontWeight: FontWeight.w400),
                                   ),
-                                ),
-                              ],
+                                  AppSizes.h(10),
+                                  Text(
+                                    balance,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      color: AppColor.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               height: 40,
