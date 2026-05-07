@@ -186,6 +186,7 @@ fvm flutter build ios --release
 ## Development Guidelines
 
 - Follow the [Dart Style Guide](https://dart.dev/guides/language/effective-dart/style)
+- Follow the [Very good analysis rules](https://pub.dev/packages/very_good_analysis) for linting
 - Use meaningful, descriptive commit messages
 - Keep commits focused and progressive — one logical change per commit
 - Test on both mobile (iOS/Android) and web platforms
