@@ -6,6 +6,9 @@ This is a Flutter-based technical assessment for the Mobile App Developer positi
 
 ---
 
+## Demo
+[Mintyn Demo](https://drive.google.com/)
+
 ## Assessment Objectives
 
 | Criteria                        | Description                                                                                            |
@@ -189,17 +192,11 @@ fvm flutter build ios --release
 
 ---
 
-## Demo Recordings
+## App Screenshots
 
 | Splash                      | Dashboard                      | Cards                      | Card Transactions                      |
 | --------------------------- | ------------------------------ | -------------------------- | -------------------------------------- |
-| _[Splash](assets/video/splash.mp4)_ | _[Dashboard](assets/video/dashboard.mp4)_ | _[Cards](assets/video/cards.mp4)_ | _[Card Transactions](assets/video/card_transactions.mp4)_ |
-
----
-
-## APK Download
-
-> [Download APK](https://drive.google.com/)
+| _[Splash](assets/screenshots/splash.png)_ | _[Dashboard](assets/screenshots/dashboard.png)_ | _[Cards](assets/screenshots/cards.png)_ | _[Card Transactions](assets/screenshots/card_transactions.png)_ |
 
 ---
 
