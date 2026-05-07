@@ -24,8 +24,16 @@ import 'package:mintyn/features/home/data/repositories/home_repository_impl.dart
     as _i203;
 import 'package:mintyn/features/home/domain/repositories/home_repository.dart'
     as _i70;
+import 'package:mintyn/features/home/domain/usecases/getbalance_usecase.dart'
+    as _i500;
+import 'package:mintyn/features/home/domain/usecases/gethistory_usecase.dart'
+    as _i660;
 import 'package:mintyn/features/home/domain/usecases/getnews_usecase.dart'
     as _i393;
+import 'package:mintyn/features/home/presentation/cubit/balance_cubit.dart'
+    as _i929;
+import 'package:mintyn/features/home/presentation/cubit/history_cubit.dart'
+    as _i635;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i174.GetIt init(
@@ -58,8 +66,16 @@ _i174.GetIt init(
         datasource: gh<_i682.HomeRemoteDatasource>(),
         localDataStorage: gh<_i42.LocalDataStorage>(),
       ));
-  gh.lazySingleton<_i393.GetNewsUseCase>(
-      () => _i393.GetNewsUseCase(repository: gh<_i70.HomeRepository>()));
+  gh.lazySingleton<_i660.GetHistoryUseCase>(
+      () => _i660.GetHistoryUseCase(repository: gh<_i70.HomeRepository>()));
+  gh.lazySingleton<_i500.GetBalanceUseCase>(
+      () => _i500.GetBalanceUseCase(repository: gh<_i70.HomeRepository>()));
+  gh.lazySingleton<_i393.GetBalanceUseCase>(
+      () => _i393.GetBalanceUseCase(repository: gh<_i70.HomeRepository>()));
+  gh.factory<_i635.HistoryCubit>(() =>
+      _i635.HistoryCubit(getHistoryUseCase: gh<_i660.GetHistoryUseCase>()));
+  gh.factory<_i929.BalanceCubit>(() =>
+      _i929.BalanceCubit(getBalanceUseCase: gh<_i500.GetBalanceUseCase>()));
   return getIt;
 }
 

@@ -12,5 +12,6 @@ class GetBalanceUseCase extends UseCase<BalanceModel, NoParams> {
   final HomeRepository repository;
 
   @override
-  Future<Either<Failure, BalanceModel>> call(NoParams params) => repository.getUserBalance();
+  Future<Either<Failure, BalanceModel>> call(NoParams params) =>
+      repository.getUserBalance();
 }

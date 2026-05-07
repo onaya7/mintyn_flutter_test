@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mintyn/core/constants/app_url.dart';
-import 'package:mintyn/features/home/data/models/news_model.dart';
+import 'package:mintyn/features/home/data/models/balance_model.dart';
+import 'package:mintyn/features/home/data/models/transactionhistory_model.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../../../core/local_data/local_data_storage.dart';
@@ -10,9 +14,9 @@ import '../../../../core/network_info/api_client.dart';
 import '../../../../core/network_info/network_info.dart';
 import '../../../../utils/internet_safe_runner.dart';
 
-// ignore: one_member_abstracts
 abstract class HomeRemoteDatasource {
-  Future<List<NewsModel>> getNews();
+  Future<BalanceModel> getUserBalance();
+  Future<List<TransactionHistoryModel>> getHistory({String period = 'weekly'});
 }
 
 final PrettyDioLogger _prettyDioLogger = PrettyDioLogger(requestHeader: true, requestBody: true);
@@ -42,17 +46,20 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
   late final InternetSafeRunner internetSafeRunner;
 
   @override
-  Future<List<NewsModel>> getNews() async {
-    return internetSafeRunner<List<NewsModel>>(
-      safeCallback: () async {
-        final response = await client.getRequest(path: AppUrl.getHomeData(), query: {});
-        final result = response.data; // Extract data from HttpResponse
-        if (result is List) {
-          return result.map((e) => NewsModel.fromJson(e as Map<String, dynamic>)).toList();
-        } else {
-          throw Exception('Unexpected response format');
-        }
-      },
-    );
+  Future<BalanceModel> getUserBalance() async {
+    await Future<void>.delayed(const Duration(milliseconds: 800));
+    final jsonString = await rootBundle.loadString('assets/data/balance.json');
+    final json = jsonDecode(jsonString) as Map<String, dynamic>;
+    return BalanceModel.fromJson(json);
+  }
+
+  @override
+  Future<List<TransactionHistoryModel>> getHistory({String period = 'weekly'}) async {
+    await Future<void>.delayed(const Duration(milliseconds: 600));
+    final jsonString = await rootBundle.loadString('assets/data/transaction.json');
+    final json = jsonDecode(jsonString) as Map<String, dynamic>;
+    final data = json['data'] as Map<String, dynamic>;
+    final list = data[period.toLowerCase()] as List<dynamic>? ?? [];
+    return list.map((e) => TransactionHistoryModel.fromJson(e as Map<String, dynamic>)).toList();
   }
 }

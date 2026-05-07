@@ -6,9 +6,4 @@ class AppUrl {
   //Base URL
   static String baseUrl = Env.apiBaseUrl;
 
-  static String getHomeData() => '$baseUrl/home';
-
-  // Auth Endpoints ------------------------------------------------------------
-
-  // Home Endpoints ------------------------------------------------------------
 }

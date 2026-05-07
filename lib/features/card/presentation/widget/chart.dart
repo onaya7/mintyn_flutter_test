@@ -89,14 +89,14 @@ class _SpendChartWidgetState extends State<SpendChartWidget> with SingleTickerPr
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
       ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header row
-            Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header row
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
@@ -128,42 +128,42 @@ class _SpendChartWidgetState extends State<SpendChartWidget> with SingleTickerPr
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+          ),
+          const SizedBox(height: 20),
 
-            // Chart area
-            AnimatedBuilder(
-              animation: _animation,
-              builder: (context, _) {
-                return _ChartArea(
-                  dataPoints: widget.dataPoints,
-                  labels: widget.labels,
-                  progress: _animation.value,
-                  tooltipValueBuilder: widget.tooltipValueBuilder,
-                  tooltipX: _tooltipX,
-                  tooltipY: _tooltipY,
-                  tooltipValue: _tooltipValue,
-                  hoverIndex: _hoverIndex,
-                  onHover: (x, y, value, index) {
-                    setState(() {
-                      _tooltipX = x;
-                      _tooltipY = y;
-                      _tooltipValue = value;
-                      _hoverIndex = index;
-                    });
-                  },
-                  onHoverEnd: () {
-                    setState(() {
-                      _tooltipX = null;
-                      _tooltipY = null;
-                      _tooltipValue = null;
-                      _hoverIndex = null;
-                    });
-                  },
-                );
-              },
-            ),
-          ],
-        ),
+          // Chart area
+          AnimatedBuilder(
+            animation: _animation,
+            builder: (context, _) {
+              return _ChartArea(
+                dataPoints: widget.dataPoints,
+                labels: widget.labels,
+                progress: _animation.value,
+                tooltipValueBuilder: widget.tooltipValueBuilder,
+                tooltipX: _tooltipX,
+                tooltipY: _tooltipY,
+                tooltipValue: _tooltipValue,
+                hoverIndex: _hoverIndex,
+                onHover: (x, y, value, index) {
+                  setState(() {
+                    _tooltipX = x;
+                    _tooltipY = y;
+                    _tooltipValue = value;
+                    _hoverIndex = index;
+                  });
+                },
+                onHoverEnd: () {
+                  setState(() {
+                    _tooltipX = null;
+                    _tooltipY = null;
+                    _tooltipValue = null;
+                    _hoverIndex = null;
+                  });
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -272,7 +272,7 @@ class _ChartArea extends StatelessWidget {
         ),
         // X-axis labels
         Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 16),
+          padding: const EdgeInsets.only(top: 8, bottom: 16, left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: labels

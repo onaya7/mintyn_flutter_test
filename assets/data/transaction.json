@@ -1,0 +1,25 @@
+{
+  "message": "Transactions fetched successfully",
+  "statusCode": 200,
+  "success": true,
+  "data": {
+    "weekly": [
+      { "tranxType": "ewallet",    "title": "E wallet",        "dateTime": "2024-12-12T12:10:00.000", "amount": "+100",  "isDebit": false },
+      { "tranxType": "shopping",   "title": "Online Shopping", "dateTime": "2024-12-12T12:10:00.000", "amount": "-100",  "isDebit": true  },
+      { "tranxType": "ewallet",    "title": "E wallet",        "dateTime": "2024-12-12T12:10:00.000", "amount": "+100",  "isDebit": false },
+      { "tranxType": "bankingFee", "title": "Banking Fee",     "dateTime": "2024-12-12T12:10:00.000", "amount": "+100",  "isDebit": false },
+      { "tranxType": "savings",    "title": "Saving",          "dateTime": "2024-12-12T12:10:00.000", "amount": "-200",  "isDebit": true  }
+    ],
+    "monthly": [
+      { "tranxType": "shopping",   "title": "Online Shopping", "dateTime": "2024-11-05T09:30:00.000", "amount": "-350",  "isDebit": true  },
+      { "tranxType": "ewallet",    "title": "E wallet",        "dateTime": "2024-11-10T14:20:00.000", "amount": "+500",  "isDebit": false },
+      { "tranxType": "bankingFee", "title": "Banking Fee",     "dateTime": "2024-11-15T10:00:00.000", "amount": "-25",   "isDebit": true  },
+      { "tranxType": "savings",    "title": "Saving",          "dateTime": "2024-11-20T16:45:00.000", "amount": "+200",  "isDebit": false },
+      { "tranxType": "wallet",     "title": "Wallet Top-up",   "dateTime": "2024-11-25T11:15:00.000", "amount": "+1000", "isDebit": false }
+    ],
+    "today": [
+      { "tranxType": "ewallet",    "title": "E wallet",        "dateTime": "2024-12-12T08:00:00.000", "amount": "+100",  "isDebit": false },
+      { "tranxType": "shopping",   "title": "Coffee Shop",     "dateTime": "2024-12-12T09:30:00.000", "amount": "-5",    "isDebit": true  }
+    ]
+  }
+}

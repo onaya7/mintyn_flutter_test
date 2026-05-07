@@ -1,0 +1,10 @@
+{
+  "message": "Balance fetched successfully",
+  "statusCode": 200,
+  "success": true,
+  "data": {
+    "balance": 1200,
+    "currency": "USD",
+    "holder": "Tayyab Sohail"
+  }
+}

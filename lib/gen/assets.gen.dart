@@ -12,6 +12,19 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart' as _svg;
 import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
+class $AssetsDataGen {
+  const $AssetsDataGen();
+
+  /// File path: assets/data/balance.json
+  String get balance => 'assets/data/balance.json';
+
+  /// File path: assets/data/transaction.json
+  String get transaction => 'assets/data/transaction.json';
+
+  /// List of all assets
+  List<String> get values => [balance, transaction];
+}
+
 class $AssetsFontGen {
   const $AssetsFontGen();
 
@@ -208,6 +221,7 @@ class Assets {
   const Assets._();
 
   static const String aEnv = '.env';
+  static const $AssetsDataGen data = $AssetsDataGen();
   static const $AssetsFontGen font = $AssetsFontGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
