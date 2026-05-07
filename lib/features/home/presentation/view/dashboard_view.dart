@@ -6,6 +6,7 @@ import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/extensions/int_extension.dart';
 import 'package:mintyn/features/home/presentation/widget/balance_card.dart';
+import 'package:mintyn/features/home/presentation/widget/dashboard_drawer.dart';
 import 'package:mintyn/features/home/presentation/widget/quickactionitem.dart';
 import 'package:mintyn/features/home/presentation/widget/transaction_filter_tab.dart';
 import 'package:mintyn/features/home/presentation/widget/transaction_list_view.dart';
@@ -23,6 +24,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   int _selectedTabIndex = 0;
   late final PageController _pageController;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -44,12 +46,19 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      scaffoldKey: _scaffoldKey,
+      drawer: const DashboardDrawer(),
       appBar: CustomAppBar(
-        leading: Container(
-          height: 20,
-          width: 20,
-          alignment: Alignment.center,
-          child: Assets.icons.hamburger.svg(height: 20, width: 20, fit: BoxFit.cover),
+        leading: CustomRipple(
+          onTap: () => _scaffoldKey.currentState!.openDrawer(),
+          color: Colors.transparent,
+          borderRadius: 100,
+          child: Container(
+            height: 20,
+            width: 20,
+            alignment: Alignment.center,
+            child: Assets.icons.hamburger.svg(height: 20, width: 20, fit: BoxFit.cover),
+          ),
         ),
         title: Text.rich(
           TextSpan(
@@ -129,9 +138,9 @@ class _DashboardViewState extends State<DashboardView> {
               ),
             ],
           ),
-          AppSizes.h(20),
+          AppSizes.h(11),
           TransactionFilterTab(tabs: _tabs, selectedIndex: _selectedTabIndex, onTabChanged: _onTabChanged),
-          AppSizes.h(16),
+          AppSizes.h(10),
           SizedBox(
             height: 420,
             child: PageView(

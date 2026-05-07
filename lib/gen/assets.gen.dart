@@ -76,6 +76,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/billpay.svg
   SvgGenImage get billpay => const SvgGenImage('assets/icons/billpay.svg');
 
+  /// File path: assets/icons/chevron_right.svg
+  SvgGenImage get chevronRight =>
+      const SvgGenImage('assets/icons/chevron_right.svg');
+
   /// File path: assets/icons/deposit.svg
   SvgGenImage get deposit => const SvgGenImage('assets/icons/deposit.svg');
 
@@ -88,8 +92,33 @@ class $AssetsIconsGen {
   /// File path: assets/icons/hamburger.svg
   SvgGenImage get hamburger => const SvgGenImage('assets/icons/hamburger.svg');
 
+  /// File path: assets/icons/icon1.svg
+  SvgGenImage get icon1 => const SvgGenImage('assets/icons/icon1.svg');
+
+  /// File path: assets/icons/icon2.svg
+  SvgGenImage get icon2 => const SvgGenImage('assets/icons/icon2.svg');
+
+  /// File path: assets/icons/icon3.svg
+  SvgGenImage get icon3 => const SvgGenImage('assets/icons/icon3.svg');
+
+  /// File path: assets/icons/icon4.svg
+  SvgGenImage get icon4 => const SvgGenImage('assets/icons/icon4.svg');
+
+  /// File path: assets/icons/icon5.svg
+  SvgGenImage get icon5 => const SvgGenImage('assets/icons/icon5.svg');
+
+  /// File path: assets/icons/icon6.svg
+  SvgGenImage get icon6 => const SvgGenImage('assets/icons/icon6.svg');
+
+  /// File path: assets/icons/log_out.svg
+  SvgGenImage get logOut => const SvgGenImage('assets/icons/log_out.svg');
+
   /// File path: assets/icons/more.svg
   SvgGenImage get more => const SvgGenImage('assets/icons/more.svg');
+
+  /// File path: assets/icons/profileediticon.svg
+  SvgGenImage get profileediticon =>
+      const SvgGenImage('assets/icons/profileediticon.svg');
 
   /// File path: assets/icons/savings.svg
   SvgGenImage get savings => const SvgGenImage('assets/icons/savings.svg');
@@ -108,11 +137,20 @@ class $AssetsIconsGen {
         barcode,
         bellNotification,
         billpay,
+        chevronRight,
         deposit,
         donations,
         ewallet,
         hamburger,
+        icon1,
+        icon2,
+        icon3,
+        icon4,
+        icon5,
+        icon6,
+        logOut,
         more,
+        profileediticon,
         savings,
         shopping,
         wallet
