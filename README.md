@@ -6,12 +6,6 @@ This is a Flutter-based technical assessment for the Mobile App Developer positi
 
 ---
 
-## Demo
-
-> 📹 _Add a screen recording or GIF of the app running here._
-
----
-
 ## Assessment Objectives
 
 | Criteria                        | Description                                                                                            |
@@ -195,17 +189,17 @@ fvm flutter build ios --release
 
 ---
 
-## Screenshots
+## Demo Recordings
 
 | Splash                      | Dashboard                      | Cards                      | Card Transactions                      |
 | --------------------------- | ------------------------------ | -------------------------- | -------------------------------------- |
-| _(assets/video/splash.mp4)_ | _(assets/video/dashboard.mp4)_ | _(assets/video/cards.mp4)_ | _(assets/video/card_transactions.mp4)_ |
+| _[Splash](assets/video/splash.mp4)_ | _[Dashboard](assets/video/dashboard.mp4)_ | _[Cards](assets/video/cards.mp4)_ | _[Card Transactions](assets/video/card_transactions.mp4)_ |
 
 ---
 
 ## APK Download
 
-> [Download APK](https://drive.google.com/) ← _replace with your link_
+> [Download APK](https://drive.google.com/)
 
 ---
 
