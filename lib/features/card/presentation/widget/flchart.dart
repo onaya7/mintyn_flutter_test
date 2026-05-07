@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:mintyn/core/constants/app_color.dart';
 
 // ---------------------------------------------------------------------------
 // Widget
@@ -70,7 +71,7 @@ class _FlSpendChartWidgetState extends State<FlSpendChartWidget> with SingleTick
       constraints: const BoxConstraints(maxWidth: 500),
       decoration: BoxDecoration(
         color: const Color(0xFF212121),
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
         boxShadow: [
           BoxShadow(
@@ -96,7 +97,7 @@ class _FlSpendChartWidgetState extends State<FlSpendChartWidget> with SingleTick
                       widget.title,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.85),
-                        fontSize: 17,
+                        fontSize: 22,
                         fontWeight: FontWeight.w400,
                         letterSpacing: 0.2,
                       ),
@@ -104,7 +105,7 @@ class _FlSpendChartWidgetState extends State<FlSpendChartWidget> with SingleTick
                     const SizedBox(width: 8),
                     Text(
                       widget.totalAmount,
-                      style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w800),
+                      style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w800),
                     ),
                   ],
                 ),
@@ -329,7 +330,7 @@ class _PeriodButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.keyboard_arrow_down, color: Color(0xFF2B7FFF), size: 18),
+            const Icon(Icons.keyboard_arrow_down, color: AppColor.white, size: 18),
             const SizedBox(width: 4),
             Text(
               value,

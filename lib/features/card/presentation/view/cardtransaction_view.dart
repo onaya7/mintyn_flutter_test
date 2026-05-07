@@ -1,13 +1,13 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mintyn/core/components/custom_appbar.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/extensions/datetime_extension.dart';
+import 'package:mintyn/core/extensions/int_extension.dart';
 import 'package:mintyn/features/card/data/model/card_data.dart';
+import 'package:mintyn/features/card/presentation/widget/chart.dart';
 import 'package:mintyn/features/card/presentation/widget/credit_card_widget.dart';
-import 'package:mintyn/features/card/presentation/widget/flchart.dart';
 import 'package:mintyn/features/home/data/models/transactiondata.dart';
 import 'package:mintyn/gen/assets.gen.dart';
 import 'package:mintyn/utils/logger.dart';
@@ -81,31 +81,78 @@ class CardtransactionView extends StatelessWidget {
             AppSizes.h(32),
             Padding(
               padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
-              child: FlSpendChartWidget(
+              child: SpendChartWidget(
                 title: 'Total Spend',
-                totalAmount: r'$30',
+                totalAmount: 30.toMoneyString(),
                 labels: const ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                spots: const [
-                  FlSpot(0, 2800),
-                  FlSpot(0.4, 2500),
-                  FlSpot(0.8, 3200),
-                  FlSpot(1.2, 2900),
-                  FlSpot(1.6, 3657),
-                  FlSpot(2, 4100),
-                  FlSpot(2.4, 4500),
-                  FlSpot(2.8, 4200),
-                  FlSpot(3.2, 5600),
-                  FlSpot(3.6, 4900),
-                  FlSpot(4, 4700),
-                  FlSpot(4.4, 5100),
-                  FlSpot(4.8, 6300),
-                  FlSpot(5, 5900),
+                // Normalised (0.0–1.0) from spot Y-values below (max = 6300)
+                dataPoints: const [
+                  0.44, // 2800
+                  0.40, // 2500
+                  0.51, // 3200
+                  0.46, // 2900
+                  0.58, // 3657
+                  0.65, // 4100
+                  0.71, // 4500
+                  0.67, // 4200
+                  0.89, // 5600
+                  0.78, // 4900
+                  0.75, // 4700
+                  0.81, // 5100
+                  1.00, // 6300
+                  0.94, // 5900
                 ],
+                tooltipValueBuilder: (index, value) {
+                  const rawValues = [
+                    2800,
+                    2500,
+                    3200,
+                    2900,
+                    3657,
+                    4100,
+                    4500,
+                    4200,
+                    5600,
+                    4900,
+                    4700,
+                    5100,
+                    6300,
+                    5900,
+                  ];
+                  return '\$${rawValues[index].toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}';
+                },
                 onPeriodChanged: (value) {
                   logger.d('Selected period: $value');
                 },
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
+            //   child: FlSpendChartWidget(
+            //     title: 'Total Spend',
+            //     totalAmount: 30.toMoneyString(),
+            //     labels: const ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            //     spots: const [
+            //       FlSpot(0, 2800),
+            //       FlSpot(0.4, 2500),
+            //       FlSpot(0.8, 3200),
+            //       FlSpot(1.2, 2900),
+            //       FlSpot(1.6, 3657),
+            //       FlSpot(2, 4100),
+            //       FlSpot(2.4, 4500),
+            //       FlSpot(2.8, 4200),
+            //       FlSpot(3.2, 5600),
+            //       FlSpot(3.6, 4900),
+            //       FlSpot(4, 4700),
+            //       FlSpot(4.4, 5100),
+            //       FlSpot(4.8, 6300),
+            //       FlSpot(5, 5900),
+            //     ],
+            //     onPeriodChanged: (value) {
+            //       logger.d('Selected period: $value');
+            //     },
+            //   ),
+            // ),
             const Divider(color: AppColor.greyT30, thickness: 1, height: 32),
             Padding(
               padding: const EdgeInsets.only(left: 21, right: 21),
