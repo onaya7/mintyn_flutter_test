@@ -6,6 +6,7 @@ import 'package:mintyn/core/components/custom_scaffold.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/helpers/ui_helpers.dart';
+import 'package:mintyn/features/card/data/model/card_data.dart';
 import 'package:mintyn/features/card/presentation/widget/card_quick_action.dart';
 import 'package:mintyn/features/card/presentation/widget/card_setting_items.dart';
 import 'package:mintyn/features/card/presentation/widget/credit_card_widget.dart';
@@ -42,17 +43,17 @@ class _CardViewState extends State<CardView> {
 
   static const List<String> _tabs = ['Physical Card', 'Virtual Card'];
 
-  static const List<_CardData> _physicalCards = [
-    _CardData(lastFour: '1234', holder: 'John Doe', validDate: '12/26', cvv: '123'),
-    _CardData(lastFour: '4521', holder: 'John Doe', validDate: '12/26', cvv: '456'),
-    _CardData(lastFour: '8803', holder: 'John Doe', validDate: '08/27', cvv: '789'),
+  static const List<CardData> _physicalCards = [
+    CardData(lastFour: '1234', holder: 'Tayyab Sohail', validDate: '12/02/2024', cvv: '123'),
+    CardData(lastFour: '4521', holder: 'Tayyab Sohail', validDate: '12/26/2024', cvv: '456'),
+    CardData(lastFour: '8803', holder: 'Tayyab Sohail', validDate: '08/27/2024', cvv: '789'),
   ];
 
-  static const List<_CardData> _virtualCards = [
-    _CardData(lastFour: '3390', holder: 'John Doe', validDate: '05/25', cvv: '321'),
+  static const List<CardData> _virtualCards = [
+    CardData(lastFour: '3390', holder: 'John Doe', validDate: '05/25', cvv: '321'),
   ];
 
-  List<_CardData> get _activeCards => _selectedTabIndex == 0 ? _physicalCards : _virtualCards;
+  List<CardData> get _activeCards => _selectedTabIndex == 0 ? _physicalCards : _virtualCards;
 
   @override
   Widget build(BuildContext context) {
@@ -231,13 +232,4 @@ class _CardViewState extends State<CardView> {
       ],
     );
   }
-}
-
-class _CardData {
-  const _CardData({required this.lastFour, required this.holder, required this.validDate, required this.cvv});
-
-  final String lastFour;
-  final String holder;
-  final String validDate;
-  final String cvv;
 }
