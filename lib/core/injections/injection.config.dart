@@ -18,6 +18,8 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
 import 'package:mintyn/core/injections/register_module.dart' as _i577;
 import 'package:mintyn/core/local_data/local_data_storage.dart' as _i42;
 import 'package:mintyn/core/network_info/network_info.dart' as _i516;
+import 'package:mintyn/features/card/data/datasources/card_remote_datasource.dart'
+    as _i1067;
 import 'package:mintyn/features/home/data/datasources/home_remote_datasource.dart'
     as _i682;
 import 'package:mintyn/features/home/data/repositories/home_repository_impl.dart'
@@ -56,6 +58,12 @@ _i174.GetIt init(
       () => _i516.NetworkInfoImpl(gh<_i973.InternetConnectionChecker>()));
   gh.lazySingleton<_i42.LocalDataStorage>(
       () => _i42.LocalDataStorageImpl(gh<_i986.Box<dynamic>>()));
+  gh.lazySingleton<_i1067.CardRemoteDatasource>(
+      () => _i1067.CardRemoteDatasourceImpl(
+            networkInfo: gh<_i516.NetworkInfo>(),
+            localDataStorage: gh<_i42.LocalDataStorage>(),
+            dio: gh<_i361.Dio>(),
+          ));
   gh.lazySingleton<_i682.HomeRemoteDatasource>(
       () => _i682.HomeRemoteDatasourceImpl(
             networkInfo: gh<_i516.NetworkInfo>(),

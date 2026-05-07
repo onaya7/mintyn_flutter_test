@@ -1,0 +1,53 @@
+{
+  "message": "Cards fetched successfully",
+  "statusCode": 200,
+  "success": true,
+  "data": {
+    "physical": [
+      {
+        "id": "card_001",
+        "lastFour": "1234",
+        "holder": "Tayyab Sohail",
+        "validDate": "12/26/2024",
+        "cvv": "456",
+        "type": "physical",
+        "isActive": true,
+        "settings": {
+          "changePinEnabled": true,
+          "qrPaymentEnabled": true,
+          "onlineShoppingEnabled": false
+        }
+      },
+      {
+        "id": "card_002",
+        "lastFour": "5678",
+        "holder": "Tayyab Sohail",
+        "validDate": "08/27/2025",
+        "cvv": "123",
+        "type": "physical",
+        "isActive": false,
+        "settings": {
+          "changePinEnabled": false,
+          "qrPaymentEnabled": true,
+          "onlineShoppingEnabled": true
+        }
+      }
+    ],
+    "virtual": [
+      {
+        "id": "card_003",
+        "lastFour": "9012",
+        "holder": "Tayyab Sohail",
+        "validDate": "03/28/2026",
+        "cvv": "789",
+        "type": "virtual",
+        "isActive": true,
+        "settings": {
+          "changePinEnabled": false,
+          "qrPaymentEnabled": false,
+          "onlineShoppingEnabled": true
+        }
+      }
+    ]
+  }
+}

@@ -18,11 +18,14 @@ class $AssetsDataGen {
   /// File path: assets/data/balance.json
   String get balance => 'assets/data/balance.json';
 
+  /// File path: assets/data/card.json
+  String get card => 'assets/data/card.json';
+
   /// File path: assets/data/transaction.json
   String get transaction => 'assets/data/transaction.json';
 
   /// List of all assets
-  List<String> get values => [balance, transaction];
+  List<String> get values => [balance, card, transaction];
 }
 
 class $AssetsFontGen {
