@@ -62,6 +62,10 @@ class $AssetsIconsGen {
   SvgGenImage get arrowUpRight =>
       const SvgGenImage('assets/icons/arrow_up_right.svg');
 
+  /// File path: assets/icons/bankingfee.svg
+  SvgGenImage get bankingfee =>
+      const SvgGenImage('assets/icons/bankingfee.svg');
+
   /// File path: assets/icons/barcode.svg
   SvgGenImage get barcode => const SvgGenImage('assets/icons/barcode.svg');
 
@@ -78,23 +82,40 @@ class $AssetsIconsGen {
   /// File path: assets/icons/donations.svg
   SvgGenImage get donations => const SvgGenImage('assets/icons/donations.svg');
 
+  /// File path: assets/icons/ewallet.svg
+  SvgGenImage get ewallet => const SvgGenImage('assets/icons/ewallet.svg');
+
   /// File path: assets/icons/hamburger.svg
   SvgGenImage get hamburger => const SvgGenImage('assets/icons/hamburger.svg');
 
   /// File path: assets/icons/more.svg
   SvgGenImage get more => const SvgGenImage('assets/icons/more.svg');
 
+  /// File path: assets/icons/savings.svg
+  SvgGenImage get savings => const SvgGenImage('assets/icons/savings.svg');
+
+  /// File path: assets/icons/shopping.svg
+  SvgGenImage get shopping => const SvgGenImage('assets/icons/shopping.svg');
+
+  /// File path: assets/icons/wallet.svg
+  SvgGenImage get wallet => const SvgGenImage('assets/icons/wallet.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
         addPlus,
         arrowUpRight,
+        bankingfee,
         barcode,
         bellNotification,
         billpay,
         deposit,
         donations,
+        ewallet,
         hamburger,
-        more
+        more,
+        savings,
+        shopping,
+        wallet
       ];
 }
 

@@ -7,10 +7,39 @@ import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/extensions/int_extension.dart';
 import 'package:mintyn/features/home/presentation/widget/balance_card.dart';
 import 'package:mintyn/features/home/presentation/widget/quickactionitem.dart';
+import 'package:mintyn/features/home/presentation/widget/transaction_filter_tab.dart';
+import 'package:mintyn/features/home/presentation/widget/transaction_list_view.dart';
 import 'package:mintyn/gen/assets.gen.dart';
 
-class DashboardView extends StatelessWidget {
+class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
+
+  @override
+  State<DashboardView> createState() => _DashboardViewState();
+}
+
+class _DashboardViewState extends State<DashboardView> {
+  static const List<String> _tabs = ['Weekly', 'Monthly', 'Today'];
+
+  int _selectedTabIndex = 0;
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _selectedTabIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onTabChanged(int index) {
+    setState(() => _selectedTabIndex = index);
+    _pageController.jumpToPage(index);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +84,7 @@ class DashboardView extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 34, 16, 0),
         children: [
-          BalanceCard(balance: 1200000000000000.toMoneyString()),
+          BalanceCard(balance: 1200.toMoneyString()),
           AppSizes.h(30),
           Container(
             height: 112,
@@ -101,47 +130,15 @@ class DashboardView extends StatelessWidget {
             ],
           ),
           AppSizes.h(20),
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
-                decoration: BoxDecoration(color: AppColor.greyT40, borderRadius: BorderRadius.circular(28)),
-                child: Text(
-                  'Weekly',
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.white,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              AppSizes.w(14),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
-                decoration: BoxDecoration(color: AppColor.greyT40, borderRadius: BorderRadius.circular(28)),
-                child: Text(
-                  'Monthly',
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.white,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              AppSizes.w(14),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
-                decoration: BoxDecoration(color: AppColor.greyT40, borderRadius: BorderRadius.circular(28)),
-                child: Text(
-                  'Today',
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.white,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-            ],
+          TransactionFilterTab(tabs: _tabs, selectedIndex: _selectedTabIndex, onTabChanged: _onTabChanged),
+          AppSizes.h(16),
+          SizedBox(
+            height: 420,
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) => setState(() => _selectedTabIndex = index),
+              children: _tabs.map((tab) => TransactionListView(type: tab)).toList(),
+            ),
           ),
         ],
       ),
