@@ -49,10 +49,10 @@ class CreditCardWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text.rich(
+                          Text.rich(
                             TextSpan(
                               text: '•••• •••• •••• ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColor.white,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
@@ -60,8 +60,8 @@ class CreditCardWidget extends StatelessWidget {
                               ),
                               children: [
                                 TextSpan(
-                                  text: '1234',
-                                  style: TextStyle(
+                                  text: lastFour,
+                                  style: const TextStyle(
                                     color: AppColor.white,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mintyn/core/components/custom_appbar.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
+import 'package:mintyn/core/components/custom_smartanimate.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/extensions/datetime_extension.dart';
 import 'package:mintyn/core/extensions/int_extension.dart';
-import 'package:mintyn/features/card/data/model/card_data.dart';
+import 'package:mintyn/features/card/data/model/card_model.dart';
 import 'package:mintyn/features/card/presentation/widget/chart.dart';
 import 'package:mintyn/features/card/presentation/widget/credit_card_widget.dart';
 import 'package:mintyn/features/home/data/models/transactiondata.dart';
@@ -13,11 +14,12 @@ import 'package:mintyn/gen/assets.gen.dart';
 import 'package:mintyn/utils/logger.dart';
 
 class CardtransactionView extends StatelessWidget {
-  const CardtransactionView({super.key});
+  const CardtransactionView({required this.card, super.key});
+
+  final CardModel card;
 
   @override
   Widget build(BuildContext context) {
-    const card = CardData(lastFour: '3390', holder: 'John Doe', validDate: '05/25', cvv: '321');
     final todayData = <TransactionData>[
       TransactionData(
         tranxType: 'shopping',
@@ -64,192 +66,175 @@ class CardtransactionView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Align(
-              child: FractionallySizedBox(
-                widthFactor: 0.7,
-                child: SizedBox(
-                  height: 178,
-                  child: CreditCardWidget(
-                    lastFour: card.lastFour,
-                    holder: card.holder,
-                    validDate: card.validDate,
-                    cvv: card.cvv,
+            SmartAnimate(
+              preset: SmartAnimatePreset.scale,
+              child: Align(
+                child: FractionallySizedBox(
+                  widthFactor: 0.7,
+                  child: SizedBox(
+                    height: 178,
+                    child: CreditCardWidget(
+                      lastFour: card.lastFour,
+                      holder: card.holder,
+                      validDate: card.validDate,
+                      cvv: card.cvv,
+                    ),
                   ),
                 ),
               ),
             ),
             AppSizes.h(32),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
-              child: SpendChartWidget(
-                title: 'Total Spend',
-                totalAmount: 30.toMoneyString(),
-                labels: const ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                // Normalised (0.0–1.0) from spot Y-values below (max = 6300)
-                dataPoints: const [
-                  0.44, // 2800
-                  0.40, // 2500
-                  0.51, // 3200
-                  0.46, // 2900
-                  0.58, // 3657
-                  0.65, // 4100
-                  0.71, // 4500
-                  0.67, // 4200
-                  0.89, // 5600
-                  0.78, // 4900
-                  0.75, // 4700
-                  0.81, // 5100
-                  1.00, // 6300
-                  0.94, // 5900
-                ],
-                tooltipValueBuilder: (index, value) {
-                  const rawValues = [
-                    2800,
-                    2500,
-                    3200,
-                    2900,
-                    3657,
-                    4100,
-                    4500,
-                    4200,
-                    5600,
-                    4900,
-                    4700,
-                    5100,
-                    6300,
-                    5900,
-                  ];
-                  return '\$${rawValues[index].toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}';
-                },
-                onPeriodChanged: (value) {
-                  logger.d('Selected period: $value');
-                },
+            SmartAnimate(
+              config: const SmartAnimateConfig(delay: Duration(milliseconds: 100)),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
+                child: SpendChartWidget(
+                  title: 'Total Spend',
+                  totalAmount: 30.toMoneyString(),
+                  labels: const ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                  // Normalised (0.0–1.0) from spot Y-values below (max = 6300)
+                  dataPoints: const [
+                    0.44, // 2800
+                    0.40, // 2500
+                    0.51, // 3200
+                    0.46, // 2900
+                    0.58, // 3657
+                    0.65, // 4100
+                    0.71, // 4500
+                    0.67, // 4200
+                    0.89, // 5600
+                    0.78, // 4900
+                    0.75, // 4700
+                    0.81, // 5100
+                    1.00, // 6300
+                    0.94, // 5900
+                  ],
+                  tooltipValueBuilder: (index, value) {
+                    const rawValues = [
+                      2800,
+                      2500,
+                      3200,
+                      2900,
+                      3657,
+                      4100,
+                      4500,
+                      4200,
+                      5600,
+                      4900,
+                      4700,
+                      5100,
+                      6300,
+                      5900,
+                    ];
+                    return '\$${rawValues[index].toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}';
+                  },
+                  onPeriodChanged: (value) {
+                    logger.d('Selected period: $value');
+                  },
+                ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
-            //   child: FlSpendChartWidget(
-            //     title: 'Total Spend',
-            //     totalAmount: 30.toMoneyString(),
-            //     labels: const ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            //     spots: const [
-            //       FlSpot(0, 2800),
-            //       FlSpot(0.4, 2500),
-            //       FlSpot(0.8, 3200),
-            //       FlSpot(1.2, 2900),
-            //       FlSpot(1.6, 3657),
-            //       FlSpot(2, 4100),
-            //       FlSpot(2.4, 4500),
-            //       FlSpot(2.8, 4200),
-            //       FlSpot(3.2, 5600),
-            //       FlSpot(3.6, 4900),
-            //       FlSpot(4, 4700),
-            //       FlSpot(4.4, 5100),
-            //       FlSpot(4.8, 6300),
-            //       FlSpot(5, 5900),
-            //     ],
-            //     onPeriodChanged: (value) {
-            //       logger.d('Selected period: $value');
-            //     },
-            //   ),
-            // ),
+
             const Divider(color: AppColor.greyT30, thickness: 1, height: 32),
-            Padding(
-              padding: const EdgeInsets.only(left: 21, right: 21),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Transaction History',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w400, fontSize: 22),
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          'See all',
-                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: AppColor.blueT10,
+            SmartAnimate(
+              config: const SmartAnimateConfig(delay: Duration(milliseconds: 180)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 21, right: 21),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Transaction History',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w400, fontSize: 22),
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            'See all',
+                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                              color: AppColor.blueT10,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  AppSizes.h(16),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: todayData.length,
-                    separatorBuilder: (_, __) => const Divider(color: AppColor.greyT50, thickness: 0.5, height: 1),
-                    itemBuilder: (context, index) {
-                      final item = todayData[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        child: Row(
-                          children: [
-                            _buildTranxIcon(item.tranxType),
-                            AppSizes.w(14),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    item.title,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium!.copyWith(fontSize: 17, fontWeight: FontWeight.w600),
-                                  ),
-                                  AppSizes.h(4),
-                                  Text.rich(
-                                    TextSpan(
-                                      text: item.dateTime.toTimeString(),
-                                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                        color: AppColor.greyT70,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 13,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: ' • ',
-                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                            color: AppColor.greyT80,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: item.dateTime.toDateString(),
-                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                            color: AppColor.greyT70,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                      ],
+                      ],
+                    ),
+                    AppSizes.h(16),
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: todayData.length,
+                      separatorBuilder: (_, __) => const Divider(color: AppColor.greyT50, thickness: 0.5, height: 1),
+                      itemBuilder: (context, index) {
+                        final item = todayData[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          child: Row(
+                            children: [
+                              _buildTranxIcon(item.tranxType),
+                              AppSizes.w(14),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.title,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.headlineMedium!.copyWith(fontSize: 17, fontWeight: FontWeight.w600),
                                     ),
-                                  ),
-                                ],
+                                    AppSizes.h(4),
+                                    Text.rich(
+                                      TextSpan(
+                                        text: item.dateTime.toTimeString(),
+                                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                          color: AppColor.greyT70,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: ' • ',
+                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                              color: AppColor.greyT80,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: item.dateTime.toDateString(),
+                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                              color: AppColor.greyT70,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Text(
-                              item.amount,
-                              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                color: item.isDebit ? AppColor.redT10 : AppColor.blueT20,
+                              Text(
+                                item.amount,
+                                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  color: item.isDebit ? AppColor.redT10 : AppColor.blueT20,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

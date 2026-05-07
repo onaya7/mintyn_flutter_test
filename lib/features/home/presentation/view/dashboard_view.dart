@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mintyn/core/components/custom_appbar.dart';
 import 'package:mintyn/core/components/custom_ripple.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
+import 'package:mintyn/core/components/custom_smartanimate.dart';
 import 'package:mintyn/core/components/state_widgets.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
@@ -107,78 +108,92 @@ class _DashboardViewState extends State<DashboardView> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 34, 16, 0),
           children: [
-            BlocBuilder<BalanceCubit, BalanceState>(
-              builder: (context, state) {
-                return state.when(
-                  initial: () => const BalanceCardShimmer(),
-                  loading: () => const BalanceCardShimmer(),
-                  loaded: (balance) => BalanceCard(balance: balance.balance.toMoneyString()),
-                  error: (msg) =>
-                      AppErrorState(message: msg, onRetry: () => context.read<BalanceCubit>().loadBalance()),
-                );
-              },
+            SmartAnimate(
+              child: BlocBuilder<BalanceCubit, BalanceState>(
+                builder: (context, state) {
+                  return state.when(
+                    initial: () => const BalanceCardShimmer(),
+                    loading: () => const BalanceCardShimmer(),
+                    loaded: (balance) => BalanceCard(balance: balance.balance.toMoneyString()),
+                    error: (msg) =>
+                        AppErrorState(message: msg, onRetry: () => context.read<BalanceCubit>().loadBalance()),
+                  );
+                },
+              ),
             ),
             AppSizes.h(30),
-            Container(
-              height: 112,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColor.greyT40,
-                borderRadius: BorderRadius.circular(7),
-                border: Border.all(color: AppColor.greyT20, width: 1.5),
+            SmartAnimate(
+              config: const SmartAnimateConfig(delay: Duration(milliseconds: 80)),
+              child: Container(
+                height: 112,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColor.greyT40,
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(color: AppColor.greyT20, width: 1.5),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    QuickActionItem(iconPath: Assets.icons.billpay.path, label: 'Bill Pay', onTap: () {}),
+                    const ActionDivider(),
+                    QuickActionItem(iconPath: Assets.icons.donations.path, label: 'Donations', onTap: () {}),
+                    const ActionDivider(),
+                    QuickActionItem(iconPath: Assets.icons.deposit.path, label: 'Deposit', onTap: () {}),
+                    const ActionDivider(),
+                    QuickActionItem(iconPath: Assets.icons.more.path, label: 'More', onTap: () {}),
+                  ],
+                ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            ),
+            AppSizes.h(30),
+            SmartAnimate(
+              config: const SmartAnimateConfig(delay: Duration(milliseconds: 160)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  QuickActionItem(iconPath: Assets.icons.billpay.path, label: 'Bill Pay', onTap: () {}),
-                  const ActionDivider(),
-                  QuickActionItem(iconPath: Assets.icons.donations.path, label: 'Donations', onTap: () {}),
-                  const ActionDivider(),
-                  QuickActionItem(iconPath: Assets.icons.deposit.path, label: 'Deposit', onTap: () {}),
-                  const ActionDivider(),
-                  QuickActionItem(iconPath: Assets.icons.more.path, label: 'More', onTap: () {}),
+                  Text(
+                    'Transaction History',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Text(
+                      'See all',
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: AppColor.blueT10,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            AppSizes.h(30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Transaction History',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    'See all',
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: AppColor.blueT10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
             AppSizes.h(11),
-            TransactionFilterTab(tabs: _tabs, selectedIndex: _selectedTabIndex, onTabChanged: _onTabChanged),
+            SmartAnimate(
+              config: const SmartAnimateConfig(delay: Duration(milliseconds: 210)),
+              child: TransactionFilterTab(tabs: _tabs, selectedIndex: _selectedTabIndex, onTabChanged: _onTabChanged),
+            ),
             AppSizes.h(10),
-            BlocBuilder<HistoryCubit, HistoryState>(
-              builder: (context, state) {
-                return state.when(
-                  initial: () => const TransactionListShimmer(),
-                  loading: () => const TransactionListShimmer(),
-                  loaded: (transactions) => TransactionListView(items: transactions),
-                  error: (msg) => AppErrorState(
-                    message: msg,
-                    onRetry: () => context.read<HistoryCubit>().loadHistory(period: _periodMap[_selectedTabIndex]),
-                  ),
-                );
-              },
+            SmartAnimate(
+              config: const SmartAnimateConfig(delay: Duration(milliseconds: 260)),
+              child: BlocBuilder<HistoryCubit, HistoryState>(
+                builder: (context, state) {
+                  return state.when(
+                    initial: () => const TransactionListShimmer(),
+                    loading: () => const TransactionListShimmer(),
+                    loaded: (transactions) => TransactionListView(items: transactions),
+                    error: (msg) => AppErrorState(
+                      message: msg,
+                      onRetry: () => context.read<HistoryCubit>().loadHistory(period: _periodMap[_selectedTabIndex]),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),

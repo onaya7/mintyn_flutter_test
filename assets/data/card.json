@@ -3,6 +3,8 @@
   "statusCode": 200,
   "success": true,
   "data": {
+    "physicalCount": 3,
+    "virtualCount": 1,
     "physical": [
       {
         "id": "card_001",
@@ -29,6 +31,20 @@
         "settings": {
           "changePinEnabled": false,
           "qrPaymentEnabled": true,
+          "onlineShoppingEnabled": true
+        }
+      },
+      {
+        "id": "card_004",
+        "lastFour": "3456",
+        "holder": "Tayyab Sohail",
+        "validDate": "01/30/2025",
+        "cvv": "321",
+        "type": "physical",
+        "isActive": true,
+        "settings": {
+          "changePinEnabled": true,
+          "qrPaymentEnabled": false,
           "onlineShoppingEnabled": true
         }
       }

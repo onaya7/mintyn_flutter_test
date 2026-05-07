@@ -20,6 +20,14 @@ import 'package:mintyn/core/local_data/local_data_storage.dart' as _i42;
 import 'package:mintyn/core/network_info/network_info.dart' as _i516;
 import 'package:mintyn/features/card/data/datasources/card_remote_datasource.dart'
     as _i1067;
+import 'package:mintyn/features/card/data/repositories/card_repository_impl.dart'
+    as _i899;
+import 'package:mintyn/features/card/domain/repositories/card_repository.dart'
+    as _i458;
+import 'package:mintyn/features/card/domain/usecases/getcards_usecase.dart'
+    as _i319;
+import 'package:mintyn/features/card/presentation/cubit/card_cubit.dart'
+    as _i468;
 import 'package:mintyn/features/home/data/datasources/home_remote_datasource.dart'
     as _i682;
 import 'package:mintyn/features/home/data/repositories/home_repository_impl.dart'
@@ -70,10 +78,14 @@ _i174.GetIt init(
             localDataStorage: gh<_i42.LocalDataStorage>(),
             dio: gh<_i361.Dio>(),
           ));
+  gh.lazySingleton<_i458.CardRepository>(() =>
+      _i899.CardRepositoryImpl(datasource: gh<_i1067.CardRemoteDatasource>()));
   gh.lazySingleton<_i70.HomeRepository>(() => _i203.HomeRepositoryImpl(
         datasource: gh<_i682.HomeRemoteDatasource>(),
         localDataStorage: gh<_i42.LocalDataStorage>(),
       ));
+  gh.lazySingleton<_i319.GetCardsUseCase>(
+      () => _i319.GetCardsUseCase(repository: gh<_i458.CardRepository>()));
   gh.lazySingleton<_i660.GetHistoryUseCase>(
       () => _i660.GetHistoryUseCase(repository: gh<_i70.HomeRepository>()));
   gh.lazySingleton<_i500.GetBalanceUseCase>(
@@ -82,6 +94,10 @@ _i174.GetIt init(
       () => _i393.GetBalanceUseCase(repository: gh<_i70.HomeRepository>()));
   gh.factory<_i635.HistoryCubit>(() =>
       _i635.HistoryCubit(getHistoryUseCase: gh<_i660.GetHistoryUseCase>()));
+  gh.factory<_i468.CardCubit>(() => _i468.CardCubit(
+        getCardsUseCase: gh<_i319.GetCardsUseCase>(),
+        datasource: gh<_i1067.CardRemoteDatasource>(),
+      ));
   gh.factory<_i929.BalanceCubit>(() =>
       _i929.BalanceCubit(getBalanceUseCase: gh<_i500.GetBalanceUseCase>()));
   return getIt;

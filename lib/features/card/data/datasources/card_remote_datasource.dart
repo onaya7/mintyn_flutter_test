@@ -13,9 +13,9 @@ import '../../../../core/network_info/api_client.dart';
 import '../../../../core/network_info/network_info.dart';
 import '../../../../utils/internet_safe_runner.dart';
 
-// ignore: one_member_abstracts
 abstract class CardRemoteDatasource {
   Future<List<CardModel>> getCards({String type = 'physical'});
+  Future<Map<String, int>> getCardCounts();
 }
 
 final PrettyDioLogger _prettyDioLogger = PrettyDioLogger(requestHeader: true, requestBody: true);
@@ -52,5 +52,13 @@ class CardRemoteDatasourceImpl implements CardRemoteDatasource {
     final data = json['data'] as Map<String, dynamic>;
     final list = data[type.toLowerCase()] as List<dynamic>? ?? [];
     return list.map((e) => CardModel.fromJson(e as Map<String, dynamic>)).toList();
+  }
+
+  @override
+  Future<Map<String, int>> getCardCounts() async {
+    final jsonString = await rootBundle.loadString('assets/data/card.json');
+    final json = jsonDecode(jsonString) as Map<String, dynamic>;
+    final data = json['data'] as Map<String, dynamic>;
+    return {'physical': data['physicalCount'] as int, 'virtual': data['virtualCount'] as int};
   }
 }

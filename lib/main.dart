@@ -19,6 +19,7 @@ void main() async {
   configureDependencies();
   await bootstrap(
     () => DevicePreview(
+      enabled: false,
       builder: (context) {
         return const App();
       },

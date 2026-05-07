@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mintyn/config/navigators/routes_name.dart';
 import 'package:mintyn/config/navigators/undefined_route.dart';
+import 'package:mintyn/features/card/data/model/card_model.dart';
 import 'package:mintyn/features/card/presentation/view/card_view.dart';
 import 'package:mintyn/features/card/presentation/view/cardtransaction_view.dart';
 import 'package:mintyn/features/home/presentation/view/dashboard_view.dart';
@@ -43,12 +44,12 @@ class RoutesGenerator {
         );
 
       case RoutesName.cardTransactionRoute:
+        final card = settings.arguments! as CardModel;
         return PageTransition(
           isIos: Platform.isIOS,
-
           type: PageTransitionType.rightToLeft,
           duration: const Duration(milliseconds: 300),
-          child: const CardtransactionView(),
+          child: CardtransactionView(card: card),
         );
 
       //Default
