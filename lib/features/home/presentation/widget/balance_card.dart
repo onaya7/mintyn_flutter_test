@@ -3,6 +3,7 @@ import 'package:mintyn/core/components/custom_button.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/gen/assets.gen.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BalanceCard extends StatelessWidget {
   const BalanceCard({required this.balance, super.key});
@@ -115,6 +116,73 @@ class BalanceCard extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class BalanceCardShimmer extends StatelessWidget {
+  const BalanceCardShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: _GradientBorderPainter(),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Shimmer.fromColors(
+          baseColor: AppColor.greyT20,
+          highlightColor: AppColor.greyT40,
+          child: Container(
+            height: 230,
+            width: double.infinity,
+            color: AppColor.greyT20,
+            padding: const EdgeInsets.fromLTRB(37, 12, 37, 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    height: 36,
+                    width: 40,
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  height: 14,
+                  width: 90,
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 32,
+                  width: 160,
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 40,
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(3)),
+                      ),
+                    ),
+                    const SizedBox(width: 30),
+                    Expanded(
+                      child: Container(
+                        height: 40,
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(3)),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

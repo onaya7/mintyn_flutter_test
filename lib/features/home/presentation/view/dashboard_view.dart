@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mintyn/core/components/custom_appbar.dart';
 import 'package:mintyn/core/components/custom_ripple.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
+import 'package:mintyn/core/components/state_widgets.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/constants/keys.dart';
 import 'package:mintyn/core/extensions/int_extension.dart';
+import 'package:mintyn/features/home/presentation/cubit/balance_cubit.dart';
+import 'package:mintyn/features/home/presentation/cubit/history_cubit.dart';
 import 'package:mintyn/features/home/presentation/widget/balance_card.dart';
 import 'package:mintyn/features/home/presentation/widget/dashboard_drawer.dart';
 import 'package:mintyn/features/home/presentation/widget/quickactionitem.dart';
@@ -23,25 +27,31 @@ class DashboardView extends StatefulWidget {
 class _DashboardViewState extends State<DashboardView> {
   static const List<String> _tabs = ['Weekly', 'Monthly', 'Today'];
 
+  static const List<String> _periodMap = ['weekly', 'monthly', 'today'];
   int _selectedTabIndex = 0;
-  late final PageController _pageController;
   final GlobalKey<ScaffoldState> _scaffoldKey = Keys.scaffoldKey;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: _selectedTabIndex);
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<BalanceCubit>().loadBalance();
+        context.read<HistoryCubit>().loadHistory();
+      }
+    });
   }
 
   void _onTabChanged(int index) {
     setState(() => _selectedTabIndex = index);
-    _pageController.jumpToPage(index);
+    context.read<HistoryCubit>().loadHistory(period: _periodMap[index]);
+  }
+
+  Future<void> _onRefresh() async {
+    await Future.wait([
+      context.read<BalanceCubit>().loadBalance(),
+      context.read<HistoryCubit>().loadHistory(period: _periodMap[_selectedTabIndex]),
+    ]);
   }
 
   @override
@@ -91,66 +101,87 @@ class _DashboardViewState extends State<DashboardView> {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 34, 16, 0),
-        children: [
-          BalanceCard(balance: 1200.toMoneyString()),
-          AppSizes.h(30),
-          Container(
-            height: 112,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColor.greyT40,
-              borderRadius: BorderRadius.circular(7),
-              border: Border.all(color: AppColor.greyT20, width: 1.5),
+      body: RefreshIndicator(
+        onRefresh: _onRefresh,
+        color: AppColor.blueT10,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(16, 34, 16, 0),
+          children: [
+            BlocBuilder<BalanceCubit, BalanceState>(
+              builder: (context, state) {
+                return state.when(
+                  initial: () => const BalanceCardShimmer(),
+                  loading: () => const BalanceCardShimmer(),
+                  loaded: (balance) => BalanceCard(balance: balance.balance.toMoneyString()),
+                  error: (msg) =>
+                      AppErrorState(message: msg, onRetry: () => context.read<BalanceCubit>().loadBalance()),
+                );
+              },
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: Row(
+            AppSizes.h(30),
+            Container(
+              height: 112,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColor.greyT40,
+                borderRadius: BorderRadius.circular(7),
+                border: Border.all(color: AppColor.greyT20, width: 1.5),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  QuickActionItem(iconPath: Assets.icons.billpay.path, label: 'Bill Pay', onTap: () {}),
+                  const ActionDivider(),
+                  QuickActionItem(iconPath: Assets.icons.donations.path, label: 'Donations', onTap: () {}),
+                  const ActionDivider(),
+                  QuickActionItem(iconPath: Assets.icons.deposit.path, label: 'Deposit', onTap: () {}),
+                  const ActionDivider(),
+                  QuickActionItem(iconPath: Assets.icons.more.path, label: 'More', onTap: () {}),
+                ],
+              ),
+            ),
+            AppSizes.h(30),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                QuickActionItem(iconPath: Assets.icons.billpay.path, label: 'Bill Pay', onTap: () {}),
-                const ActionDivider(),
-                QuickActionItem(iconPath: Assets.icons.donations.path, label: 'Donations', onTap: () {}),
-                const ActionDivider(),
-                QuickActionItem(iconPath: Assets.icons.deposit.path, label: 'Deposit', onTap: () {}),
-                const ActionDivider(),
-                QuickActionItem(iconPath: Assets.icons.more.path, label: 'More', onTap: () {}),
-              ],
-            ),
-          ),
-          AppSizes.h(30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Transaction History',
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: Text(
-                  'See all',
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                    color: AppColor.blueT10,
+                Text(
+                  'Transaction History',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Text(
+                    'See all',
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      color: AppColor.blueT10,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          AppSizes.h(11),
-          TransactionFilterTab(tabs: _tabs, selectedIndex: _selectedTabIndex, onTabChanged: _onTabChanged),
-          AppSizes.h(10),
-          SizedBox(
-            height: 420,
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (index) => setState(() => _selectedTabIndex = index),
-              children: _tabs.map((tab) => TransactionListView(type: tab)).toList(),
+              ],
             ),
-          ),
-        ],
+            AppSizes.h(11),
+            TransactionFilterTab(tabs: _tabs, selectedIndex: _selectedTabIndex, onTabChanged: _onTabChanged),
+            AppSizes.h(10),
+            BlocBuilder<HistoryCubit, HistoryState>(
+              builder: (context, state) {
+                return state.when(
+                  initial: () => const TransactionListShimmer(),
+                  loading: () => const TransactionListShimmer(),
+                  loaded: (transactions) => TransactionListView(items: transactions),
+                  error: (msg) => AppErrorState(
+                    message: msg,
+                    onRetry: () => context.read<HistoryCubit>().loadHistory(period: _periodMap[_selectedTabIndex]),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

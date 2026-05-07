@@ -1,138 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:mintyn/core/components/state_widgets.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/extensions/datetime_extension.dart';
+import 'package:mintyn/features/home/data/models/transactionhistory_model.dart';
 import 'package:mintyn/gen/assets.gen.dart';
-
-// final List<String> types = ['wallet', 'shopping', 'ewallet', 'bankingFee', 'savings'];
+import 'package:shimmer/shimmer.dart';
 
 class TransactionListView extends StatelessWidget {
-  const TransactionListView({required this.type, super.key});
+  const TransactionListView({required this.items, super.key});
 
-  final String type;
-
-  static final List<_TransactionData> _weeklyData = [
-    _TransactionData(
-      tranxType: 'wallet',
-      title: 'Netflix Subscription',
-      dateTime: DateTime(2024, 8, 12, 14, 45),
-      amount: '-14.99',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'savings',
-      title: 'Salary Credit',
-      dateTime: DateTime(2024, 8, 12, 14, 45),
-      amount: '+3,200.00',
-      isDebit: false,
-    ),
-    _TransactionData(
-      tranxType: 'shopping',
-      title: 'Grocery Store',
-      dateTime: DateTime(2024, 8, 12, 14, 45),
-      amount: '-87.40',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'ewallet',
-      title: 'Uber Ride',
-      dateTime: DateTime(2024, 8, 12, 14, 45),
-      amount: '-12.50',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'savings',
-      title: 'Freelance Payment',
-      dateTime: DateTime(2024, 8, 12, 14, 45),
-      amount: '+450.00',
-      isDebit: false,
-    ),
-  ];
-
-  static final List<_TransactionData> _monthlyData = [
-    _TransactionData(
-      tranxType: 'bankingFee',
-      title: 'Rent Payment',
-      dateTime: DateTime(2024, 8, 1, 9),
-      amount: '-1,200.00',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'bankingFee',
-      title: 'Electricity Bill',
-      dateTime: DateTime(2024, 8, 5, 10),
-      amount: '-65.00',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'savings',
-      title: 'Monthly Salary',
-      dateTime: DateTime(2024, 8, 10, 12),
-      amount: '+3,200.00',
-      isDebit: false,
-    ),
-    _TransactionData(
-      tranxType: 'bankingFee',
-      title: 'Internet Bill',
-      dateTime: DateTime(2024, 8, 15, 11),
-      amount: '-40.00',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'wallet',
-      title: 'Gym Membership',
-      dateTime: DateTime(2024, 8, 20, 8),
-      amount: '-30.00',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'savings',
-      title: 'Consulting Fee',
-      dateTime: DateTime(2024, 8, 25, 14),
-      amount: '+800.00',
-      isDebit: false,
-    ),
-  ];
-
-  static final List<_TransactionData> _todayData = [
-    _TransactionData(
-      tranxType: 'shopping',
-      title: 'Coffee Shop',
-      dateTime: DateTime(2024, 8, 12, 9),
-      amount: '-5.50',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'ewallet',
-      title: 'Online Transfer',
-      dateTime: DateTime(2024, 8, 12, 10),
-      amount: '-200.00',
-      isDebit: true,
-    ),
-    _TransactionData(
-      tranxType: 'wallet',
-      title: 'Refund Received',
-      dateTime: DateTime(2024, 8, 12, 11),
-      amount: '+35.00',
-      isDebit: false,
-    ),
-  ];
-
-  List<_TransactionData> get _items {
-    switch (type) {
-      case 'Monthly':
-        return _monthlyData;
-      case 'Today':
-        return _todayData;
-      default:
-        return _weeklyData;
-    }
-  }
+  final List<TransactionHistoryModel> items;
 
   @override
   Widget build(BuildContext context) {
-    final items = _items;
+    if (items.isEmpty) {
+      return const AppEmptyState(
+        title: 'No transactions',
+        subtitle: 'Your transaction history will appear here.',
+        icon: Icons.receipt_long_outlined,
+      );
+    }
     return ListView.separated(
+      shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: items.length,
       separatorBuilder: (_, __) => const Divider(color: AppColor.greyT50, thickness: 0.5, height: 1),
@@ -142,22 +32,20 @@ class TransactionListView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 14),
           child: Row(
             children: [
-              _buildTranxIcon(item.tranxType),
+              _buildTranxIcon(item.tranxType ?? 'wallet'),
               AppSizes.w(14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      item.title,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineMedium!.copyWith(fontSize: 17, fontWeight: FontWeight.w600),
+                      item.title ?? '',
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 17, fontWeight: FontWeight.w600),
                     ),
                     AppSizes.h(4),
                     Text.rich(
                       TextSpan(
-                        text: item.dateTime.toTimeString(),
+                        text: item.dateTime?.toTimeString() ?? '',
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           color: AppColor.greyT70,
                           fontWeight: FontWeight.w400,
@@ -173,7 +61,7 @@ class TransactionListView extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: item.dateTime.toDateString(),
+                            text: item.dateTime?.toDateString() ?? '',
                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               color: AppColor.greyT70,
                               fontWeight: FontWeight.w400,
@@ -187,11 +75,11 @@ class TransactionListView extends StatelessWidget {
                 ),
               ),
               Text(
-                item.amount,
+                item.amount ?? '',
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
-                  color: item.isDebit ? AppColor.redT10 : AppColor.blueT20,
+                  color: (item.isDebit ?? true) ? AppColor.redT10 : AppColor.blueT20,
                 ),
               ),
             ],
@@ -220,18 +108,59 @@ class TransactionListView extends StatelessWidget {
   }
 }
 
-class _TransactionData {
-  const _TransactionData({
-    required this.tranxType,
-    required this.title,
-    required this.dateTime,
-    required this.amount,
-    required this.isDebit,
-  });
+class TransactionListShimmer extends StatelessWidget {
+  const TransactionListShimmer({super.key});
 
-  final String tranxType;
-  final String title;
-  final DateTime dateTime;
-  final String amount;
-  final bool isDebit;
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: AppColor.greyT20,
+      highlightColor: AppColor.greyT40,
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 5,
+        separatorBuilder: (_, __) => const Divider(color: AppColor.greyT50, thickness: 0.5, height: 1),
+        itemBuilder: (_, __) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          child: Row(
+            children: [
+              Container(
+                height: 52,
+                width: 52,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              AppSizes.w(14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 14,
+                      width: 120,
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
+                    ),
+                    AppSizes.h(8),
+                    Container(
+                      height: 11,
+                      width: 80,
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 20,
+                width: 60,
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
