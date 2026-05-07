@@ -7,7 +7,8 @@ This is a Flutter-based technical assessment for the Mobile App Developer positi
 ---
 
 ## Demo
-[Mintyn Demo](https://drive.google.com/)
+
+[Google Drive Link to Mintyn Demo](https://drive.google.com/)
 
 ## Assessment Objectives
 
@@ -194,9 +195,9 @@ fvm flutter build ios --release
 
 ## App Screenshots
 
-| Splash                      | Dashboard                      | Cards                      | Card Transactions                      |
-| --------------------------- | ------------------------------ | -------------------------- | -------------------------------------- |
-| _[Splash](assets/screenshots/splash.png)_ | _[Dashboard](assets/screenshots/dashboard.png)_ | _[Cards](assets/screenshots/cards.png)_ | _[Card Transactions](assets/screenshots/card_transactions.png)_ |
+| Splash                                                 | Dashboard                                                 | Profile                                                 | Cards                                                 | Card Transactions                                                 |
+| ------------------------------------------------------ | --------------------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------- |
+| <img src="assets/screenshots/splash.png" width="180"/> | <img src="assets/screenshots/dashboard.png" width="180"/> | <img src="assets/screenshots/profile.png" width="180"/> | <img src="assets/screenshots/cards.png" width="180"/> | <img src="assets/screenshots/card_transactions.png" width="180"/> |
 
 ---
 
