@@ -21,6 +21,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
     return Drawer(
       backgroundColor: AppColor.greyT10,
       child: SafeArea(
+        bottom: false,
         child: ListView(
           children: [
             // Profile header
