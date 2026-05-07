@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:mintyn/config/navigators/routes_manager.dart';
+import 'package:mintyn/config/navigators/routes_name.dart';
 import 'package:mintyn/config/navigators/undefined_route.dart';
+import 'package:mintyn/features/card/presentation/view/card_view.dart';
+import 'package:mintyn/features/card/presentation/view/cardtransaction_view.dart';
 import 'package:mintyn/features/home/presentation/view/dashboard_view.dart';
 import 'package:mintyn/features/splash/presentation/view/splash_view.dart';
 import 'package:page_transition/page_transition.dart';
@@ -10,19 +14,41 @@ class RoutesGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       //Splash--------------------------------------------------------------------
-      case RoutesManager.splashRoute:
+      case RoutesName.splashRoute:
         return PageTransition(
+          isIos: Platform.isIOS,
           type: PageTransitionType.rightToLeft,
           duration: const Duration(milliseconds: 300),
           child: const SplashView(),
         );
 
       //Dashboard------------------------------------------------------------------
-      case RoutesManager.dashboardRoute:
+      case RoutesName.dashboardRoute:
         return PageTransition(
+          isIos: Platform.isIOS,
+
           type: PageTransitionType.rightToLeft,
           duration: const Duration(milliseconds: 300),
           child: const DashboardView(),
+        );
+
+      //Card-----------------------------------------------------------------------
+      case RoutesName.cardRoute:
+        return PageTransition(
+          isIos: Platform.isIOS,
+
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 300),
+          child: const CardView(),
+        );
+
+      case RoutesName.cardTransactionRoute:
+        return PageTransition(
+          isIos: Platform.isIOS,
+
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 300),
+          child: const CardtransactionView(),
         );
 
       //Default

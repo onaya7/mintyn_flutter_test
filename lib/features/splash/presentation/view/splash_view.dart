@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:mintyn/config/navigators/routes_manager.dart';
+import 'package:mintyn/config/navigators/routes_name.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
@@ -19,7 +19,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 4), () async {
-      UiHelpers.navigateToPageAndRemoveUntil(RoutesManager.dashboardRoute);
+      UiHelpers.navigateToPageAndRemoveUntil(RoutesName.dashboardRoute);
     });
   }
 

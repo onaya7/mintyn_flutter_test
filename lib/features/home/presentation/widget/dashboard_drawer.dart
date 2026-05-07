@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mintyn/config/navigators/navigators.dart';
 import 'package:mintyn/core/components/custom_cachedimage.dart';
 import 'package:mintyn/core/components/custom_ripple.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
+import 'package:mintyn/core/helpers/ui_helpers.dart';
 import 'package:mintyn/gen/assets.gen.dart';
 
 class DashboardDrawer extends StatefulWidget {
@@ -77,7 +79,14 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
                   AppSizes.h(17),
                   _DrawerItem(icon: Assets.icons.icon1.path, label: 'E-Statement', onTap: () {}),
                   AppSizes.h(17),
-                  _DrawerItem(icon: Assets.icons.icon2.path, label: 'Credit Card', onTap: () {}),
+                  _DrawerItem(
+                    icon: Assets.icons.icon2.path,
+                    label: 'Credit Card',
+                    onTap: () {
+                      UiHelpers.popPage();
+                      UiHelpers.navigateToPage(RoutesName.cardRoute);
+                    },
+                  ),
                   AppSizes.h(17),
                   _DrawerItem(icon: Assets.icons.icon3.path, label: 'Settings', onTap: () {}),
                   AppSizes.h(36),
@@ -208,6 +217,7 @@ class _DrawerToggleItem extends StatelessWidget {
             activeColor: AppColor.white,
             activeTrackColor: AppColor.blueT30,
             inactiveTrackColor: AppColor.greyT50,
+            inactiveThumbColor: AppColor.white,
           ),
         ],
       ),

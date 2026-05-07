@@ -76,9 +76,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/billpay.svg
   SvgGenImage get billpay => const SvgGenImage('assets/icons/billpay.svg');
 
-  /// File path: assets/icons/chevron_right.svg
-  SvgGenImage get chevronRight =>
-      const SvgGenImage('assets/icons/chevron_right.svg');
+  /// File path: assets/icons/cardtrnx.svg
+  SvgGenImage get cardtrnx => const SvgGenImage('assets/icons/cardtrnx.svg');
+
+  /// File path: assets/icons/changepin.svg
+  SvgGenImage get changepin => const SvgGenImage('assets/icons/changepin.svg');
 
   /// File path: assets/icons/deposit.svg
   SvgGenImage get deposit => const SvgGenImage('assets/icons/deposit.svg');
@@ -88,6 +90,10 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ewallet.svg
   SvgGenImage get ewallet => const SvgGenImage('assets/icons/ewallet.svg');
+
+  /// File path: assets/icons/freezecard.svg
+  SvgGenImage get freezecard =>
+      const SvgGenImage('assets/icons/freezecard.svg');
 
   /// File path: assets/icons/hamburger.svg
   SvgGenImage get hamburger => const SvgGenImage('assets/icons/hamburger.svg');
@@ -116,15 +122,28 @@ class $AssetsIconsGen {
   /// File path: assets/icons/more.svg
   SvgGenImage get more => const SvgGenImage('assets/icons/more.svg');
 
+  /// File path: assets/icons/onlineshopping.svg
+  SvgGenImage get onlineshopping =>
+      const SvgGenImage('assets/icons/onlineshopping.svg');
+
   /// File path: assets/icons/profileediticon.svg
   SvgGenImage get profileediticon =>
       const SvgGenImage('assets/icons/profileediticon.svg');
+
+  /// File path: assets/icons/qrpayment.svg
+  SvgGenImage get qrpayment => const SvgGenImage('assets/icons/qrpayment.svg');
+
+  /// File path: assets/icons/reveal.svg
+  SvgGenImage get reveal => const SvgGenImage('assets/icons/reveal.svg');
 
   /// File path: assets/icons/savings.svg
   SvgGenImage get savings => const SvgGenImage('assets/icons/savings.svg');
 
   /// File path: assets/icons/shopping.svg
   SvgGenImage get shopping => const SvgGenImage('assets/icons/shopping.svg');
+
+  /// File path: assets/icons/tappay.svg
+  SvgGenImage get tappay => const SvgGenImage('assets/icons/tappay.svg');
 
   /// File path: assets/icons/wallet.svg
   SvgGenImage get wallet => const SvgGenImage('assets/icons/wallet.svg');
@@ -137,10 +156,12 @@ class $AssetsIconsGen {
         barcode,
         bellNotification,
         billpay,
-        chevronRight,
+        cardtrnx,
+        changepin,
         deposit,
         donations,
         ewallet,
+        freezecard,
         hamburger,
         icon1,
         icon2,
@@ -150,9 +171,13 @@ class $AssetsIconsGen {
         icon6,
         logOut,
         more,
+        onlineshopping,
         profileediticon,
+        qrpayment,
+        reveal,
         savings,
         shopping,
+        tappay,
         wallet
       ];
 }
@@ -167,12 +192,16 @@ class $AssetsImagesGen {
   /// File path: assets/images/card_bg.png
   AssetGenImage get cardBg => const AssetGenImage('assets/images/card_bg.png');
 
+  /// File path: assets/images/cardcomp.png
+  AssetGenImage get cardcomp =>
+      const AssetGenImage('assets/images/cardcomp.png');
+
   /// File path: assets/images/mastercard.png
   AssetGenImage get mastercard =>
       const AssetGenImage('assets/images/mastercard.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [appLogo, cardBg, mastercard];
+  List<AssetGenImage> get values => [appLogo, cardBg, cardcomp, mastercard];
 }
 
 class Assets {

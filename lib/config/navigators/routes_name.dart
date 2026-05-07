@@ -1,12 +1,15 @@
-class RoutesManager {
-  RoutesManager._();
+class RoutesName {
+  RoutesName._();
 
-  //Auth------------------------------------------------------------------------
   //splash
   static const String splashRoute = '/splashView';
 
   //dashboard
   static const String dashboardRoute = '/dashboardView';
+
+  //card
+  static const String cardRoute = '/cardView';
+  static const String cardTransactionRoute = '/cardTransactionView';
 
 
 

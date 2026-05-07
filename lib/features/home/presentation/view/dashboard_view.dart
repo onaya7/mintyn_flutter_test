@@ -4,6 +4,7 @@ import 'package:mintyn/core/components/custom_ripple.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
 import 'package:mintyn/core/constants/app_color.dart';
 import 'package:mintyn/core/constants/app_size.dart';
+import 'package:mintyn/core/constants/keys.dart';
 import 'package:mintyn/core/extensions/int_extension.dart';
 import 'package:mintyn/features/home/presentation/widget/balance_card.dart';
 import 'package:mintyn/features/home/presentation/widget/dashboard_drawer.dart';
@@ -24,7 +25,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   int _selectedTabIndex = 0;
   late final PageController _pageController;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = Keys.scaffoldKey;
 
   @override
   void initState() {

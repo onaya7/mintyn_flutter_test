@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mintyn/app/view/app_bloc_provider.dart';
 import 'package:mintyn/config/navigators/routes_generator.dart';
-import 'package:mintyn/config/navigators/routes_manager.dart';
+import 'package:mintyn/config/navigators/routes_name.dart';
 import 'package:mintyn/config/theme/theme.dart';
 import 'package:mintyn/core/constants/keys.dart';
 
@@ -24,7 +24,7 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.dark,
         navigatorKey: Keys.navigatorKey,
         onGenerateRoute: RoutesGenerator.onGenerateRoute,
-        initialRoute: RoutesManager.splashRoute,
+        initialRoute: RoutesName.splashRoute,
       ),
     );
   }

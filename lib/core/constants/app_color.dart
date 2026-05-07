@@ -55,10 +55,13 @@ class AppColor {
   static const Color greyT60 = Color(0xFF2C2C2C);
   static const Color greyT70 = Color(0xFFBCBCBD);
   static const Color greyT80 = Color(0xFF6E6E70);
+  static const Color greyT90 = Color(0xFF232323);
+  static const Color greyT100 = Color(0xFF9C9C9D);
 
   static const Color blueT10 = Color(0xFF6BA6FF);
   static const Color blueT20 = Color(0xFF0065FF);
   static const Color blueT30 = Color(0xFF0047B3);
+  static const Color blueT40 = Color(0xFF2B7FFF);
 
   static const Color redT10 = Color(0xFFC40C00);
   static const Color redT20 = Color(0xFFFFD4D4);
