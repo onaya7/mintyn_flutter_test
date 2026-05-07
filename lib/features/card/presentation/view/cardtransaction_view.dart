@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mintyn/core/components/custom_appbar.dart';
 import 'package:mintyn/core/components/custom_scaffold.dart';
@@ -6,8 +7,10 @@ import 'package:mintyn/core/constants/app_size.dart';
 import 'package:mintyn/core/extensions/datetime_extension.dart';
 import 'package:mintyn/features/card/data/model/card_data.dart';
 import 'package:mintyn/features/card/presentation/widget/credit_card_widget.dart';
+import 'package:mintyn/features/card/presentation/widget/flchart.dart';
 import 'package:mintyn/features/home/data/models/transactiondata.dart';
 import 'package:mintyn/gen/assets.gen.dart';
+import 'package:mintyn/utils/logger.dart';
 
 class CardtransactionView extends StatelessWidget {
   const CardtransactionView({super.key});
@@ -76,9 +79,32 @@ class CardtransactionView extends StatelessWidget {
               ),
             ),
             AppSizes.h(32),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(21, 0, 21, 0),
-              child: Placeholder(fallbackHeight: 250, color: AppColor.greyT50, strokeWidth: 1.5),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
+              child: FlSpendChartWidget(
+                title: 'Total Spend',
+                totalAmount: r'$30',
+                labels: const ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                spots: const [
+                  FlSpot(0, 2800),
+                  FlSpot(0.4, 2500),
+                  FlSpot(0.8, 3200),
+                  FlSpot(1.2, 2900),
+                  FlSpot(1.6, 3657),
+                  FlSpot(2, 4100),
+                  FlSpot(2.4, 4500),
+                  FlSpot(2.8, 4200),
+                  FlSpot(3.2, 5600),
+                  FlSpot(3.6, 4900),
+                  FlSpot(4, 4700),
+                  FlSpot(4.4, 5100),
+                  FlSpot(4.8, 6300),
+                  FlSpot(5, 5900),
+                ],
+                onPeriodChanged: (value) {
+                  logger.d('Selected period: $value');
+                },
+              ),
             ),
             const Divider(color: AppColor.greyT30, thickness: 1, height: 32),
             Padding(
