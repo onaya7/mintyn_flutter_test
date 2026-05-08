@@ -8,7 +8,7 @@ This is a Flutter-based technical assessment for the Mobile App Developer positi
 
 ## Demo
 
-[Google Drive Link to Mintyn Demo](https://drive.google.com/)
+[Google Drive Link to Mintyn Demo](https://drive.google.com/file/d/1m_opDQm6Qos3bOQ55yiAZJNP3aJHJosh/view?usp=drive_link)
 
 ## Assessment Objectives
 
